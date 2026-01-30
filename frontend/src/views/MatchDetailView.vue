@@ -32,7 +32,16 @@
 
     <!-- Matches -->
     <div v-if="tab === 'matches'" class="space-y-6">
-      <div v-for="m in activity.matches" :key="m.id" class="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-hidden group p-6">
+      <!-- Multi-select Filter Bar -->
+      <div class="flex items-center gap-3 px-2 mb-2">
+        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">筛选 (支持多选):</span>
+        <div class="flex-1 flex gap-2 overflow-x-auto no-scrollbar py-1">
+          <button @click="matchFilters = []" :class="matchFilters.length === 0 ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-slate-400 border border-slate-100'" class="whitespace-nowrap px-4 py-1.5 rounded-xl text-[10px] font-black transition-all">全部</button>
+          <button v-for="p in activity.players" :key="p" @click="toggleFilter(p)" :class="matchFilters.includes(p) ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-slate-400 border border-slate-100'" class="whitespace-nowrap px-4 py-1.5 rounded-xl text-[10px] font-black transition-all">{{ p }}</button>
+        </div>
+      </div>
+
+      <div v-for="m in filteredMatches" :key="m.id" class="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-hidden group p-6">
         <div class="flex justify-between items-center mb-4">
           <span class="text-[10px] font-black text-slate-300 uppercase tracking-widest">Round {{ m.round }}</span>
           <span :class="m.status === 'finished' ? 'text-green-500' : 'text-orange-400'" class="text-[10px] font-black uppercase tracking-widest">{{ m.status === 'finished' ? '已完赛' : '进行中' }}</span>
@@ -51,6 +60,9 @@
           </div>
         </div>
       </div>
+      <div v-if="filteredMatches.length === 0" class="text-center py-10 text-slate-300 font-bold italic underline decoration-blue-100">
+        没有找到符合筛选条件的对局
+      </div>
     </div>
 
     <!-- Leaderboard -->
@@ -60,7 +72,7 @@
           <tr><th class="p-5">排名 RANK</th><th class="p-5">选手</th><th class="p-5 text-center">胜/负</th><th class="p-5 text-center">净胜</th></tr>
         </thead>
         <tbody class="divide-y divide-slate-50">
-          <tr v-for="(p, i) in leaderboard" :key="p.name">
+          <tr v-for="(p, i) in leaderboard" :key="p.name" @click="goToPlayer(p.name)" class="active:bg-slate-50">
             <td class="p-5 font-black text-slate-300 italic text-xl">#{{ i + 1 }}</td>
             <td class="p-5 font-black text-slate-800">{{ p.name }}</td>
             <td class="p-5 text-center text-sm font-bold text-slate-500">{{ p.win }} / {{ p.loss }}</td>
@@ -116,6 +128,7 @@ const tab = ref('matches');
 const leaderboard = ref([]);
 const showRegen = ref(false);
 const regenForm = ref({ type: '', rounds: 1 });
+const matchFilters = ref([]);
 
 const modes = [
   { id: 'doubles_rotation', title: '多人轮转赛' },
@@ -128,6 +141,20 @@ const progress = computed(() => {
   if (!activity.value || activity.value.matches.length === 0) return 0;
   return Math.round((finishedCount.value / activity.value.matches.length) * 100);
 });
+
+const filteredMatches = computed(() => {
+  if (!activity.value) return [];
+  if (matchFilters.value.length === 0) return activity.value.matches;
+  return activity.value.matches.filter(m => 
+    matchFilters.value.some(playerName => [...m.team_a, ...m.team_b].includes(playerName))
+  );
+});
+
+const toggleFilter = (name) => {
+  const idx = matchFilters.value.indexOf(name);
+  if (idx > -1) matchFilters.value.splice(idx, 1);
+  else matchFilters.value.push(name);
+};
 
 const load = async () => {
   const res = await fetch(`/api/activities/${route.params.id}`);
@@ -165,6 +192,8 @@ const fetchLeaderboard = async () => {
   const res = await fetch(`/api/activities/${route.params.id}/leaderboard`);
   leaderboard.value = await res.json();
 };
+
+const goToPlayer = (name) => router.push(`/player/${name}`);
 
 const formatType = (type) => {
   const map = { 'doubles_rotation': '多人轮转赛', 'doubles_fixed_round_robin': '固搭循环赛', 'singles_round_robin': '单打循环赛' };
