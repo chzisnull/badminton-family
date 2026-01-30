@@ -158,6 +158,10 @@ const toggleFilter = (name) => {
 
 const load = async () => {
   const res = await fetch(`/api/activities/${route.params.id}`);
+  if (res.status === 404) {
+    router.push('/');
+    return;
+  }
   const data = await res.json();
   activity.value = data;
   regenForm.value.type = data.type;
