@@ -124,7 +124,13 @@ app.get('/api/activities/:id/leaderboard', async (req, res) => {
 
 // 5. Get History
 app.get('/api/history', async (req, res) => {
-  const list = await db.all('SELECT * FROM activities ORDER BY created_at DESC');
+  const list = await db.all(`
+    SELECT a.*, 
+           (SELECT COUNT(*) FROM matches WHERE activity_id = a.id) as total_matches,
+           (SELECT COUNT(*) FROM matches WHERE activity_id = a.id AND status = 'finished') as finished_matches
+    FROM activities a 
+    ORDER BY created_at DESC
+  `);
   res.json(list);
 });
 

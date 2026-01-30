@@ -24,13 +24,16 @@
         <router-link v-for="item in history" :key="item.id" :to="'/activity/' + item.id" class="group bg-white p-5 rounded-[2rem] shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer active:scale-[0.98] hover:shadow-md transition-all">
           <div class="flex-1">
             <div class="flex items-center gap-2 mb-1.5">
-              <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+              <span :class="item.finished_matches === item.total_matches ? 'bg-slate-300' : 'bg-green-400 animate-pulse'" class="w-2 h-2 rounded-full"></span>
               <h3 class="font-black text-lg text-slate-800 group-hover:text-blue-600 transition-colors">{{ item.name }}</h3>
+              <span v-if="item.finished_matches === item.total_matches" class="text-[10px] bg-slate-100 text-slate-400 px-2 py-0.5 rounded-md font-black uppercase">已结束</span>
             </div>
             <p class="text-[11px] text-slate-400 font-black uppercase tracking-wider flex items-center gap-2">
               <span>📅 {{ formatDate(item.created_at) }}</span>
               <span class="text-slate-200">|</span>
               <span class="text-blue-500/70">{{ formatType(item.type) }}</span>
+              <span class="text-slate-200">|</span>
+              <span class="text-slate-500">{{ item.finished_matches }}/{{ item.total_matches }} 局</span>
             </p>
           </div>
           <div class="w-10 h-10 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-300 font-black group-hover:bg-blue-50 group-hover:text-blue-600 transition-all">→</div>
