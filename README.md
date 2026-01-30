@@ -1,43 +1,45 @@
 # 羽球一家人 (Badminton Family)
 
-一个轻量级、响应式的羽毛球对战管理系统，专为移动端优化。支持多种赛制编排、实时计分及个人战绩追踪。
+一个健全、响应式的羽毛球对战管理系统。
 
-## 🌟 核心功能
+## 🏗 项目结构
 
-- **赛制支持**：
-  - **多人轮转赛**：随机/平衡组队，每局自动换队友，计算个人积分。
-  - **固搭循环赛**：固定搭档，组与组之间进行大循环对战。
-  - **单打循环赛**：标准 1v1 竞技模式。
-- **人员管理**：持久化选手档案，一键选择历史人员参赛。
-- **实时排名**：基于胜场数和净胜分实时生成的排行榜。
-- **历史战绩**：按活动聚合的个人及全局历史比赛记录。
-- **响应式 UI**：完美适配手机端和 PC 端浏览器。
+### 后端 (Backend)
+- 路径: `backend/`
+- 技术栈: Node.js, Express, SQLite
+- 核心文件:
+  - `index.js`: 主服务入口，RESTful API 实现
+  - `db.js`: 数据库连接与 Schema 定义
+  - `matchMaker.js`: 对阵编排算法核心
+  - `database.sqlite`: 数据存储文件
 
-## 🛠 技术栈
+### 前端 (Frontend)
+- 路径: `frontend/`
+- 技术栈: Vue 3 (Vite), Vue Router, Tailwind CSS, Animate.css
+- 目录说明:
+  - `src/router/`: 路由配置 (Home, Create, Detail, Player)
+  - `src/views/`: 业务页面组件
+  - `src/App.vue`: 主框架
+  - `index.html`: 模板文件
 
-- **后端**：Node.js + Express
-- **数据库**：SQLite 3
-- **前端**：Vue 3 + Tailwind CSS + Lucide Icons
-- **架构**：前后端分离，后端提供 RESTful API
+## 🚀 启动说明
 
-## 🚀 快速开始
-
-### 1. 安装依赖
+### 后端启动
 ```bash
 cd backend
 npm install
-```
-
-### 2. 启动服务
-```bash
 node index.js
 ```
-默认访问地址：`http://localhost:3000`
 
-## 📂 项目结构
-- `backend/`: 后端源码、数据库配置及算法逻辑。
-- `frontend/dist/`: 预构建的前端静态文件（生产环境直接托管）。
-- `database.sqlite`: 数据库文件。
+### 前端构建 (Vite)
+```bash
+cd frontend
+npm install
+npm run build
+```
+
+## 🛠 数据库定义
+参考根目录下的 `SCHEMA.sql`。
 
 ---
-Developed by Aster ✨ for 瀚舟.
+Updated by Aster ✨
