@@ -1,12 +1,14 @@
 <template>
   <div class="animate__animated animate__fadeIn">
+    <!-- Main Tabs -->
     <div class="flex gap-2 mb-8 bg-slate-200/50 p-1.5 rounded-2xl">
       <button @click="tab = 'activities'" :class="tab === 'activities' ? 'bg-white shadow-md text-blue-600' : 'text-slate-500'" class="flex-1 py-2.5 rounded-xl text-sm font-black transition-all">比赛中心</button>
       <button @click="tab = 'players'; fetchAllPlayers()" :class="tab === 'players' ? 'bg-white shadow-md text-blue-600' : 'text-slate-500'" class="flex-1 py-2.5 rounded-xl text-sm font-black transition-all">成员档案</button>
     </div>
 
-    <!-- Activities List -->
+    <!-- Activities List Section -->
     <div v-if="tab === 'activities'" class="space-y-6">
+      <!-- Title & Create Button -->
       <div class="flex justify-between items-end px-1">
         <div>
           <h2 class="text-xl font-black text-slate-800">对战大厅</h2>
@@ -14,14 +16,24 @@
         </div>
         <router-link to="/create" class="bg-blue-600 text-white px-5 py-2.5 rounded-2xl text-sm font-black shadow-lg shadow-blue-200 active:scale-95 transition-all">新比赛</router-link>
       </div>
+
+      <!-- Sub-filter Tabs (All, Singles, Doubles) -->
+      <div class="flex gap-4 border-b border-slate-100 px-1">
+        <button v-for="f in activityFilters" :key="f.id"
+          @click="currentFilter = f.id"
+          :class="currentFilter === f.id ? 'text-blue-600 border-b-2 border-blue-600' : 'text-slate-400'"
+          class="pb-2 text-sm font-black transition-all">
+          {{ f.label }}
+        </button>
+      </div>
       
-      <div v-if="history.length === 0" class="text-center py-24 bg-white rounded-3xl border border-dashed border-slate-200">
+      <div v-if="filteredHistory.length === 0" class="text-center py-24 bg-white rounded-3xl border border-dashed border-slate-200">
         <div class="text-4xl mb-4 opacity-20">🏐</div>
-        <p class="text-slate-400 font-bold">还没有比赛记录哦</p>
+        <p class="text-slate-400 font-bold">暂无此类比赛记录</p>
       </div>
 
       <div class="grid gap-4">
-        <router-link v-for="item in history" :key="item.id" :to="'/activity/' + item.id" class="group bg-white p-5 rounded-[2rem] shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer active:scale-[0.98] hover:shadow-md transition-all">
+        <router-link v-for="item in filteredHistory" :key="item.id" :to="'/activity/' + item.id" class="group bg-white p-5 rounded-[2rem] shadow-sm border border-slate-100 flex justify-between items-center cursor-pointer active:scale-[0.98] hover:shadow-md transition-all">
           <div class="flex-1">
             <div class="flex items-center gap-2 mb-1.5">
               <span :class="item.finished_matches === item.total_matches ? 'bg-slate-300' : 'bg-green-400 animate-pulse'" class="w-2 h-2 rounded-full"></span>
@@ -41,7 +53,7 @@
       </div>
     </div>
 
-    <!-- Players List -->
+    <!-- Players List Section -->
     <div v-if="tab === 'players'" class="space-y-6">
       <div class="flex justify-between items-end px-1">
         <div>
@@ -75,13 +87,33 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
 const tab = ref('activities');
 const history = ref([]);
 const allPlayers = ref([]);
 const showAddModal = ref(false);
 const newName = ref('');
+
+const currentFilter = ref('all');
+const activityFilters = [
+  { id: 'all', label: '全部' },
+  { id: 'singles', label: '单打' },
+  { id: 'doubles', label: '双打' }
+];
+
+const filteredHistory = computed(() => {
+  if (currentFilter.value === 'all') return history.value;
+  if (currentFilter.value === 'singles') {
+    return history.value.filter(item => item.type === 'singles_round_robin');
+  }
+  if (currentFilter.value === 'doubles') {
+    return history.value.filter(item => 
+      item.type === 'doubles_rotation' || item.type === 'doubles_fixed_round_robin'
+    );
+  }
+  return history.value;
+});
 
 const fetchHistory = async () => {
   const res = await fetch('/api/history');
