@@ -229,6 +229,17 @@ app.get('/api/players/:name/activities', async (req, res) => {
 
 async function main() {
   db = await initDb();
+
+  // Catch-all for SPA: Serve index.html for any route not handled by API or static middleware
+  app.use((req, res, next) => {
+    // Only serve index.html for non-api routes
+    if (!req.path.startsWith('/api')) {
+      res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+    } else {
+      res.status(404).json({ error: 'API route not found' });
+    }
+  });
+
   app.listen(port, '0.0.0.0', () => {
     console.log(`Badminton Pro listening at http://0.0.0.0:${port}`);
   });
