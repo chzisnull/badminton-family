@@ -36,7 +36,13 @@ app.post('/api/activities', async (req, res) => {
     if (type === 'singles_round_robin') {
       matches = roundRobin(players).map(m => ({ ...m, teamA: [m.a], teamB: [m.b] }));
     } else if (type === 'doubles_fixed_round_robin') {
-      matches = roundRobin(players).map(m => ({ ...m, teamA: m.a, teamB: m.b }));
+      // Logic for fixed pairs: roundRobin expects pairs as items
+      const pairs = [];
+      for (let i = 0; i < players.length; i += 2) {
+        if (players[i+1]) pairs.push([players[i], players[i+1]]);
+        else pairs.push([players[i]]); // Lone player
+      }
+      matches = roundRobin(pairs).map(m => ({ ...m, teamA: m.a, teamB: m.b }));
     } else {
       matches = doublesRotation(players);
     }
@@ -165,7 +171,12 @@ app.post('/api/activities/:id/regenerate', async (req, res) => {
     if (type === 'singles_round_robin') {
       matches = roundRobin(players).map(m => ({ ...m, teamA: [m.a], teamB: [m.b] }));
     } else if (type === 'doubles_fixed_round_robin') {
-      matches = roundRobin(players).map(m => ({ ...m, teamA: m.a, teamB: m.b }));
+      const pairs = [];
+      for (let i = 0; i < players.length; i += 2) {
+        if (players[i+1]) pairs.push([players[i], players[i+1]]);
+        else pairs.push([players[i]]);
+      }
+      matches = roundRobin(pairs).map(m => ({ ...m, teamA: m.a, teamB: m.b }));
     } else {
       matches = doublesRotation(players);
     }

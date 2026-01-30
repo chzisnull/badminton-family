@@ -38,13 +38,17 @@
           <span :class="m.status === 'finished' ? 'text-green-500' : 'text-orange-400'" class="text-[10px] font-black uppercase tracking-widest">{{ m.status === 'finished' ? '已完赛' : '进行中' }}</span>
         </div>
         <div class="flex items-center gap-4">
-          <div class="flex-1 text-right font-black text-lg text-slate-700 leading-tight">{{ m.team_a.join('&') }}</div>
-          <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-2xl">
-            <input v-model.number="m.score_a" @change="saveScore(m)" type="number" class="w-12 h-12 bg-white rounded-xl text-center font-black text-xl text-blue-600 border-none outline-none">
-            <span class="text-slate-200 font-black">:</span>
-            <input v-model.number="m.score_b" @change="saveScore(m)" type="number" class="w-12 h-12 bg-white rounded-xl text-center font-black text-xl text-red-600 border-none outline-none">
+          <div class="flex-1 text-right font-black text-lg text-slate-700 leading-tight">
+            {{ Array.isArray(m.team_a) ? m.team_a.join(' & ') : m.team_a }}
           </div>
-          <div class="flex-1 text-left font-black text-lg text-slate-700 leading-tight">{{ m.team_b.join('&') }}</div>
+          <div class="flex items-center gap-2 bg-slate-50 p-2 rounded-2xl border border-slate-100 shadow-inner">
+            <input v-model.number="m.score_a" @change="saveScore(m)" type="number" class="w-12 h-12 bg-white rounded-xl text-center font-black text-xl text-blue-600 border-none outline-none shadow-sm">
+            <span class="text-slate-200 font-black">:</span>
+            <input v-model.number="m.score_b" @change="saveScore(m)" type="number" class="w-12 h-12 bg-white rounded-xl text-center font-black text-xl text-red-600 border-none outline-none shadow-sm">
+          </div>
+          <div class="flex-1 text-left font-black text-lg text-slate-700 leading-tight">
+            {{ Array.isArray(m.team_b) ? m.team_b.join(' & ') : m.team_b }}
+          </div>
         </div>
       </div>
     </div>
