@@ -1,0 +1,1280 @@
+
+using namespace System.Management.Automation
+using namespace System.Management.Automation.Language
+
+Register-ArgumentCompleter -Native -CommandName 'himalaya' -ScriptBlock {
+    param($wordToComplete, $commandAst, $cursorPosition)
+
+    $commandElements = $commandAst.CommandElements
+    $command = @(
+        'himalaya'
+        for ($i = 1; $i -lt $commandElements.Count; $i++) {
+            $element = $commandElements[$i]
+            if ($element -isnot [StringConstantExpressionAst] -or
+                $element.StringConstantType -ne [StringConstantType]::BareWord -or
+                $element.Value.StartsWith('-') -or
+                $element.Value -eq $wordToComplete) {
+                break
+        }
+        $element.Value
+    }) -join ';'
+
+    $completions = @(switch ($command) {
+        'himalaya' {
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('account', 'account', [CompletionResultType]::ParameterValue, 'Configure, list and diagnose your accounts')
+            [CompletionResult]::new('folder', 'folder', [CompletionResultType]::ParameterValue, 'Create, list and purge your folders (as known as mailboxes)')
+            [CompletionResult]::new('mailbox', 'mailbox', [CompletionResultType]::ParameterValue, 'Create, list and purge your folders (as known as mailboxes)')
+            [CompletionResult]::new('envelope', 'envelope', [CompletionResultType]::ParameterValue, 'List, search and sort your envelopes')
+            [CompletionResult]::new('flag', 'flag', [CompletionResultType]::ParameterValue, 'Add, change and remove your envelopes flags')
+            [CompletionResult]::new('message', 'message', [CompletionResultType]::ParameterValue, 'Read, write, send, copy, move and delete your messages')
+            [CompletionResult]::new('attachment', 'attachment', [CompletionResultType]::ParameterValue, 'Download your message attachments')
+            [CompletionResult]::new('template', 'template', [CompletionResultType]::ParameterValue, 'Generate, save and send message templates')
+            [CompletionResult]::new('manual', 'manual', [CompletionResultType]::ParameterValue, 'Generate manual pages to the given directory')
+            [CompletionResult]::new('completion', 'completion', [CompletionResultType]::ParameterValue, 'Print completion script for the given shell to stdout')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;account' {
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('configure', 'configure', [CompletionResultType]::ParameterValue, 'Configure the given account')
+            [CompletionResult]::new('doctor', 'doctor', [CompletionResultType]::ParameterValue, 'Diagnose and fix the given account')
+            [CompletionResult]::new('list', 'list', [CompletionResultType]::ParameterValue, 'List all existing accounts')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;account;configure' {
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;account;doctor' {
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'Try to fix the given account')
+            [CompletionResult]::new('--fix', '--fix', [CompletionResultType]::ParameterName, 'Try to fix the given account')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;account;list' {
+            [CompletionResult]::new('-w', '-w', [CompletionResultType]::ParameterName, 'The maximum width the table should not exceed')
+            [CompletionResult]::new('--max-width', '--max-width', [CompletionResultType]::ParameterName, 'The maximum width the table should not exceed')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;account;help' {
+            [CompletionResult]::new('configure', 'configure', [CompletionResultType]::ParameterValue, 'Configure the given account')
+            [CompletionResult]::new('doctor', 'doctor', [CompletionResultType]::ParameterValue, 'Diagnose and fix the given account')
+            [CompletionResult]::new('list', 'list', [CompletionResultType]::ParameterValue, 'List all existing accounts')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;account;help;configure' {
+            break
+        }
+        'himalaya;account;help;doctor' {
+            break
+        }
+        'himalaya;account;help;list' {
+            break
+        }
+        'himalaya;account;help;help' {
+            break
+        }
+        'himalaya;folder' {
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('add', 'add', [CompletionResultType]::ParameterValue, 'Create the given folder')
+            [CompletionResult]::new('create', 'create', [CompletionResultType]::ParameterValue, 'Create the given folder')
+            [CompletionResult]::new('list', 'list', [CompletionResultType]::ParameterValue, 'List all folders')
+            [CompletionResult]::new('expunge', 'expunge', [CompletionResultType]::ParameterValue, 'Expunge the given folder')
+            [CompletionResult]::new('purge', 'purge', [CompletionResultType]::ParameterValue, 'Purge the given folder')
+            [CompletionResult]::new('delete', 'delete', [CompletionResultType]::ParameterValue, 'Delete the given folder')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;mailbox' {
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('add', 'add', [CompletionResultType]::ParameterValue, 'Create the given folder')
+            [CompletionResult]::new('create', 'create', [CompletionResultType]::ParameterValue, 'Create the given folder')
+            [CompletionResult]::new('list', 'list', [CompletionResultType]::ParameterValue, 'List all folders')
+            [CompletionResult]::new('expunge', 'expunge', [CompletionResultType]::ParameterValue, 'Expunge the given folder')
+            [CompletionResult]::new('purge', 'purge', [CompletionResultType]::ParameterValue, 'Purge the given folder')
+            [CompletionResult]::new('delete', 'delete', [CompletionResultType]::ParameterValue, 'Delete the given folder')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;folder;add' {
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;folder;create' {
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;mailbox;add' {
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;mailbox;create' {
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;folder;list' {
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-w', '-w', [CompletionResultType]::ParameterName, 'The maximum width the table should not exceed')
+            [CompletionResult]::new('--max-width', '--max-width', [CompletionResultType]::ParameterName, 'The maximum width the table should not exceed')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;mailbox;list' {
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-w', '-w', [CompletionResultType]::ParameterName, 'The maximum width the table should not exceed')
+            [CompletionResult]::new('--max-width', '--max-width', [CompletionResultType]::ParameterName, 'The maximum width the table should not exceed')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;folder;expunge' {
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;mailbox;expunge' {
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;folder;purge' {
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('-y', '-y', [CompletionResultType]::ParameterName, 'y')
+            [CompletionResult]::new('--yes', '--yes', [CompletionResultType]::ParameterName, 'yes')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;mailbox;purge' {
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('-y', '-y', [CompletionResultType]::ParameterName, 'y')
+            [CompletionResult]::new('--yes', '--yes', [CompletionResultType]::ParameterName, 'yes')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;folder;delete' {
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('-y', '-y', [CompletionResultType]::ParameterName, 'y')
+            [CompletionResult]::new('--yes', '--yes', [CompletionResultType]::ParameterName, 'yes')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;mailbox;delete' {
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('-y', '-y', [CompletionResultType]::ParameterName, 'y')
+            [CompletionResult]::new('--yes', '--yes', [CompletionResultType]::ParameterName, 'yes')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;folder;help' {
+            [CompletionResult]::new('add', 'add', [CompletionResultType]::ParameterValue, 'Create the given folder')
+            [CompletionResult]::new('list', 'list', [CompletionResultType]::ParameterValue, 'List all folders')
+            [CompletionResult]::new('expunge', 'expunge', [CompletionResultType]::ParameterValue, 'Expunge the given folder')
+            [CompletionResult]::new('purge', 'purge', [CompletionResultType]::ParameterValue, 'Purge the given folder')
+            [CompletionResult]::new('delete', 'delete', [CompletionResultType]::ParameterValue, 'Delete the given folder')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;folder;help;add' {
+            break
+        }
+        'himalaya;folder;help;list' {
+            break
+        }
+        'himalaya;folder;help;expunge' {
+            break
+        }
+        'himalaya;folder;help;purge' {
+            break
+        }
+        'himalaya;folder;help;delete' {
+            break
+        }
+        'himalaya;folder;help;help' {
+            break
+        }
+        'himalaya;mailbox;help' {
+            [CompletionResult]::new('add', 'add', [CompletionResultType]::ParameterValue, 'Create the given folder')
+            [CompletionResult]::new('list', 'list', [CompletionResultType]::ParameterValue, 'List all folders')
+            [CompletionResult]::new('expunge', 'expunge', [CompletionResultType]::ParameterValue, 'Expunge the given folder')
+            [CompletionResult]::new('purge', 'purge', [CompletionResultType]::ParameterValue, 'Purge the given folder')
+            [CompletionResult]::new('delete', 'delete', [CompletionResultType]::ParameterValue, 'Delete the given folder')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;mailbox;help;add' {
+            break
+        }
+        'himalaya;mailbox;help;list' {
+            break
+        }
+        'himalaya;mailbox;help;expunge' {
+            break
+        }
+        'himalaya;mailbox;help;purge' {
+            break
+        }
+        'himalaya;mailbox;help;delete' {
+            break
+        }
+        'himalaya;mailbox;help;help' {
+            break
+        }
+        'himalaya;envelope' {
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('list', 'list', [CompletionResultType]::ParameterValue, 'Search and sort envelopes as a list')
+            [CompletionResult]::new('thread', 'thread', [CompletionResultType]::ParameterValue, 'Search and sort envelopes as a thread')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;envelope;list' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-p', '-p', [CompletionResultType]::ParameterName, 'The page number')
+            [CompletionResult]::new('--page', '--page', [CompletionResultType]::ParameterName, 'The page number')
+            [CompletionResult]::new('-s', '-s', [CompletionResultType]::ParameterName, 'The page size')
+            [CompletionResult]::new('--page-size', '--page-size', [CompletionResultType]::ParameterName, 'The page size')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-w', '-w', [CompletionResultType]::ParameterName, 'The maximum width the table should not exceed')
+            [CompletionResult]::new('--max-width', '--max-width', [CompletionResultType]::ParameterName, 'The maximum width the table should not exceed')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;envelope;thread' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-i', '-i', [CompletionResultType]::ParameterName, 'Show only threads that contain the given envelope identifier')
+            [CompletionResult]::new('--id', '--id', [CompletionResultType]::ParameterName, 'Show only threads that contain the given envelope identifier')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;envelope;help' {
+            [CompletionResult]::new('list', 'list', [CompletionResultType]::ParameterValue, 'Search and sort envelopes as a list')
+            [CompletionResult]::new('thread', 'thread', [CompletionResultType]::ParameterValue, 'Search and sort envelopes as a thread')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;envelope;help;list' {
+            break
+        }
+        'himalaya;envelope;help;thread' {
+            break
+        }
+        'himalaya;envelope;help;help' {
+            break
+        }
+        'himalaya;flag' {
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('add', 'add', [CompletionResultType]::ParameterValue, 'Add flag(s) to the given envelope')
+            [CompletionResult]::new('set', 'set', [CompletionResultType]::ParameterValue, 'Replace flag(s) of a given envelope')
+            [CompletionResult]::new('remove', 'remove', [CompletionResultType]::ParameterValue, 'Remove flag(s) from a given envelope')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;flag;add' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;flag;set' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;flag;remove' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;flag;help' {
+            [CompletionResult]::new('add', 'add', [CompletionResultType]::ParameterValue, 'Add flag(s) to the given envelope')
+            [CompletionResult]::new('set', 'set', [CompletionResultType]::ParameterValue, 'Replace flag(s) of a given envelope')
+            [CompletionResult]::new('remove', 'remove', [CompletionResultType]::ParameterValue, 'Remove flag(s) from a given envelope')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;flag;help;add' {
+            break
+        }
+        'himalaya;flag;help;set' {
+            break
+        }
+        'himalaya;flag;help;remove' {
+            break
+        }
+        'himalaya;flag;help;help' {
+            break
+        }
+        'himalaya;message' {
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('read', 'read', [CompletionResultType]::ParameterValue, 'Read a human-friendly version of the message associated to the given envelope id(s)')
+            [CompletionResult]::new('export', 'export', [CompletionResultType]::ParameterValue, 'Export the message associated to the given envelope id')
+            [CompletionResult]::new('thread', 'thread', [CompletionResultType]::ParameterValue, 'Read human-friendly version of messages associated to the given envelope id''s thread')
+            [CompletionResult]::new('write', 'write', [CompletionResultType]::ParameterValue, 'Compose a new message, from scratch')
+            [CompletionResult]::new('reply', 'reply', [CompletionResultType]::ParameterValue, 'Reply to the message associated to the given envelope id')
+            [CompletionResult]::new('forward', 'forward', [CompletionResultType]::ParameterValue, 'Forward the message associated to the given envelope id')
+            [CompletionResult]::new('edit', 'edit', [CompletionResultType]::ParameterValue, 'Edit the message associated to the given envelope id')
+            [CompletionResult]::new('mailto', 'mailto', [CompletionResultType]::ParameterValue, 'Parse and edit a message from the given mailto URL string')
+            [CompletionResult]::new('save', 'save', [CompletionResultType]::ParameterValue, 'Save the given raw message to the given folder')
+            [CompletionResult]::new('send', 'send', [CompletionResultType]::ParameterValue, 'Send the given raw message')
+            [CompletionResult]::new('copy', 'copy', [CompletionResultType]::ParameterValue, 'Copy the message associated to the given envelope id(s) to the given target folder')
+            [CompletionResult]::new('move', 'move', [CompletionResultType]::ParameterValue, 'Move the message associated to the given envelope id(s) to the given target folder')
+            [CompletionResult]::new('delete', 'delete', [CompletionResultType]::ParameterValue, 'Mark as deleted the message associated to the given envelope id(s)')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;message;read' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-H', '-H ', [CompletionResultType]::ParameterName, 'List of headers that should be visible at the top of the message')
+            [CompletionResult]::new('--header', '--header', [CompletionResultType]::ParameterName, 'List of headers that should be visible at the top of the message')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('-p', '-p', [CompletionResultType]::ParameterName, 'Read the message without applying the "seen" flag to its corresponding envelope')
+            [CompletionResult]::new('--preview', '--preview', [CompletionResultType]::ParameterName, 'Read the message without applying the "seen" flag to its corresponding envelope')
+            [CompletionResult]::new('--no-headers', '--no-headers', [CompletionResultType]::ParameterName, 'Read only the body of the message')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;message;export' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-d', '-d', [CompletionResultType]::ParameterName, 'Where the message should be exported to')
+            [CompletionResult]::new('--destination', '--destination', [CompletionResultType]::ParameterName, 'Where the message should be exported to')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('-F', '-F ', [CompletionResultType]::ParameterName, 'Export the full raw message as one unique .eml file')
+            [CompletionResult]::new('--full', '--full', [CompletionResultType]::ParameterName, 'Export the full raw message as one unique .eml file')
+            [CompletionResult]::new('-O', '-O ', [CompletionResultType]::ParameterName, 'Try to open the exported message, when applicable')
+            [CompletionResult]::new('--open', '--open', [CompletionResultType]::ParameterName, 'Try to open the exported message, when applicable')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;message;thread' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-H', '-H ', [CompletionResultType]::ParameterName, 'List of headers that should be visible at the top of the message')
+            [CompletionResult]::new('--header', '--header', [CompletionResultType]::ParameterName, 'List of headers that should be visible at the top of the message')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('-p', '-p', [CompletionResultType]::ParameterName, 'Thread the message without applying the "seen" flag to its corresponding envelope')
+            [CompletionResult]::new('--preview', '--preview', [CompletionResultType]::ParameterName, 'Thread the message without applying the "seen" flag to its corresponding envelope')
+            [CompletionResult]::new('--no-headers', '--no-headers', [CompletionResultType]::ParameterName, 'Thread only the body of the message')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;message;write' {
+            [CompletionResult]::new('-H', '-H ', [CompletionResultType]::ParameterName, 'Prefill the template with custom headers')
+            [CompletionResult]::new('--header', '--header', [CompletionResultType]::ParameterName, 'Prefill the template with custom headers')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;message;reply' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-H', '-H ', [CompletionResultType]::ParameterName, 'Prefill the template with custom headers')
+            [CompletionResult]::new('--header', '--header', [CompletionResultType]::ParameterName, 'Prefill the template with custom headers')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('-A', '-A ', [CompletionResultType]::ParameterName, 'Reply to all recipients')
+            [CompletionResult]::new('--all', '--all', [CompletionResultType]::ParameterName, 'Reply to all recipients')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;message;forward' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-H', '-H ', [CompletionResultType]::ParameterName, 'Prefill the template with custom headers')
+            [CompletionResult]::new('--header', '--header', [CompletionResultType]::ParameterName, 'Prefill the template with custom headers')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;message;edit' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-H', '-H ', [CompletionResultType]::ParameterName, 'List of headers that should be visible at the top of the message')
+            [CompletionResult]::new('--header', '--header', [CompletionResultType]::ParameterName, 'List of headers that should be visible at the top of the message')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('-p', '-p', [CompletionResultType]::ParameterName, 'Edit the message on place')
+            [CompletionResult]::new('--on-place', '--on-place', [CompletionResultType]::ParameterName, 'Edit the message on place')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;message;mailto' {
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;message;save' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;message;send' {
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;message;copy' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the source folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the source folder')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;message;move' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the source folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the source folder')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;message;delete' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;message;help' {
+            [CompletionResult]::new('read', 'read', [CompletionResultType]::ParameterValue, 'Read a human-friendly version of the message associated to the given envelope id(s)')
+            [CompletionResult]::new('export', 'export', [CompletionResultType]::ParameterValue, 'Export the message associated to the given envelope id')
+            [CompletionResult]::new('thread', 'thread', [CompletionResultType]::ParameterValue, 'Read human-friendly version of messages associated to the given envelope id''s thread')
+            [CompletionResult]::new('write', 'write', [CompletionResultType]::ParameterValue, 'Compose a new message, from scratch')
+            [CompletionResult]::new('reply', 'reply', [CompletionResultType]::ParameterValue, 'Reply to the message associated to the given envelope id')
+            [CompletionResult]::new('forward', 'forward', [CompletionResultType]::ParameterValue, 'Forward the message associated to the given envelope id')
+            [CompletionResult]::new('edit', 'edit', [CompletionResultType]::ParameterValue, 'Edit the message associated to the given envelope id')
+            [CompletionResult]::new('mailto', 'mailto', [CompletionResultType]::ParameterValue, 'Parse and edit a message from the given mailto URL string')
+            [CompletionResult]::new('save', 'save', [CompletionResultType]::ParameterValue, 'Save the given raw message to the given folder')
+            [CompletionResult]::new('send', 'send', [CompletionResultType]::ParameterValue, 'Send the given raw message')
+            [CompletionResult]::new('copy', 'copy', [CompletionResultType]::ParameterValue, 'Copy the message associated to the given envelope id(s) to the given target folder')
+            [CompletionResult]::new('move', 'move', [CompletionResultType]::ParameterValue, 'Move the message associated to the given envelope id(s) to the given target folder')
+            [CompletionResult]::new('delete', 'delete', [CompletionResultType]::ParameterValue, 'Mark as deleted the message associated to the given envelope id(s)')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;message;help;read' {
+            break
+        }
+        'himalaya;message;help;export' {
+            break
+        }
+        'himalaya;message;help;thread' {
+            break
+        }
+        'himalaya;message;help;write' {
+            break
+        }
+        'himalaya;message;help;reply' {
+            break
+        }
+        'himalaya;message;help;forward' {
+            break
+        }
+        'himalaya;message;help;edit' {
+            break
+        }
+        'himalaya;message;help;mailto' {
+            break
+        }
+        'himalaya;message;help;save' {
+            break
+        }
+        'himalaya;message;help;send' {
+            break
+        }
+        'himalaya;message;help;copy' {
+            break
+        }
+        'himalaya;message;help;move' {
+            break
+        }
+        'himalaya;message;help;delete' {
+            break
+        }
+        'himalaya;message;help;help' {
+            break
+        }
+        'himalaya;attachment' {
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('download', 'download', [CompletionResultType]::ParameterValue, 'Download all attachments found in the given message')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;attachment;download' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;attachment;help' {
+            [CompletionResult]::new('download', 'download', [CompletionResultType]::ParameterValue, 'Download all attachments found in the given message')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;attachment;help;download' {
+            break
+        }
+        'himalaya;attachment;help;help' {
+            break
+        }
+        'himalaya;template' {
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('write', 'write', [CompletionResultType]::ParameterValue, 'Generate a template for writing a new message from scratch')
+            [CompletionResult]::new('reply', 'reply', [CompletionResultType]::ParameterValue, 'Generate a template for replying to a message')
+            [CompletionResult]::new('forward', 'forward', [CompletionResultType]::ParameterValue, 'Generate a template for forwarding a message')
+            [CompletionResult]::new('save', 'save', [CompletionResultType]::ParameterValue, 'Save a template to a folder')
+            [CompletionResult]::new('send', 'send', [CompletionResultType]::ParameterValue, 'Send a template')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;template;write' {
+            [CompletionResult]::new('-H', '-H ', [CompletionResultType]::ParameterName, 'Prefill the template with custom headers')
+            [CompletionResult]::new('--header', '--header', [CompletionResultType]::ParameterName, 'Prefill the template with custom headers')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;template;reply' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-H', '-H ', [CompletionResultType]::ParameterName, 'Prefill the template with custom headers')
+            [CompletionResult]::new('--header', '--header', [CompletionResultType]::ParameterName, 'Prefill the template with custom headers')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('-A', '-A ', [CompletionResultType]::ParameterName, 'Reply to all recipients')
+            [CompletionResult]::new('--all', '--all', [CompletionResultType]::ParameterName, 'Reply to all recipients')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;template;forward' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-H', '-H ', [CompletionResultType]::ParameterName, 'Prefill the template with custom headers')
+            [CompletionResult]::new('--header', '--header', [CompletionResultType]::ParameterName, 'Prefill the template with custom headers')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;template;save' {
+            [CompletionResult]::new('-f', '-f', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('--folder', '--folder', [CompletionResultType]::ParameterName, 'The name of the folder')
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;template;send' {
+            [CompletionResult]::new('-a', '-a', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('--account', '--account', [CompletionResultType]::ParameterName, 'Override the default account')
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;template;help' {
+            [CompletionResult]::new('write', 'write', [CompletionResultType]::ParameterValue, 'Generate a template for writing a new message from scratch')
+            [CompletionResult]::new('reply', 'reply', [CompletionResultType]::ParameterValue, 'Generate a template for replying to a message')
+            [CompletionResult]::new('forward', 'forward', [CompletionResultType]::ParameterValue, 'Generate a template for forwarding a message')
+            [CompletionResult]::new('save', 'save', [CompletionResultType]::ParameterValue, 'Save a template to a folder')
+            [CompletionResult]::new('send', 'send', [CompletionResultType]::ParameterValue, 'Send a template')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;template;help;write' {
+            break
+        }
+        'himalaya;template;help;reply' {
+            break
+        }
+        'himalaya;template;help;forward' {
+            break
+        }
+        'himalaya;template;help;save' {
+            break
+        }
+        'himalaya;template;help;send' {
+            break
+        }
+        'himalaya;template;help;help' {
+            break
+        }
+        'himalaya;manual' {
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;completion' {
+            [CompletionResult]::new('-c', '-c', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('--config', '--config', [CompletionResultType]::ParameterName, 'Override the default configuration file path')
+            [CompletionResult]::new('-o', '-o', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--output', '--output', [CompletionResultType]::ParameterName, 'Customize the output format')
+            [CompletionResult]::new('--debug', '--debug', [CompletionResultType]::ParameterName, 'Enable logs with spantrace')
+            [CompletionResult]::new('--trace', '--trace', [CompletionResultType]::ParameterName, 'Enable verbose logs with backtrace')
+            [CompletionResult]::new('-h', '-h', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('--help', '--help', [CompletionResultType]::ParameterName, 'Print help (see more with ''--help'')')
+            [CompletionResult]::new('-V', '-V ', [CompletionResultType]::ParameterName, 'Print version')
+            [CompletionResult]::new('--version', '--version', [CompletionResultType]::ParameterName, 'Print version')
+            break
+        }
+        'himalaya;help' {
+            [CompletionResult]::new('account', 'account', [CompletionResultType]::ParameterValue, 'Configure, list and diagnose your accounts')
+            [CompletionResult]::new('folder', 'folder', [CompletionResultType]::ParameterValue, 'Create, list and purge your folders (as known as mailboxes)')
+            [CompletionResult]::new('envelope', 'envelope', [CompletionResultType]::ParameterValue, 'List, search and sort your envelopes')
+            [CompletionResult]::new('flag', 'flag', [CompletionResultType]::ParameterValue, 'Add, change and remove your envelopes flags')
+            [CompletionResult]::new('message', 'message', [CompletionResultType]::ParameterValue, 'Read, write, send, copy, move and delete your messages')
+            [CompletionResult]::new('attachment', 'attachment', [CompletionResultType]::ParameterValue, 'Download your message attachments')
+            [CompletionResult]::new('template', 'template', [CompletionResultType]::ParameterValue, 'Generate, save and send message templates')
+            [CompletionResult]::new('manual', 'manual', [CompletionResultType]::ParameterValue, 'Generate manual pages to the given directory')
+            [CompletionResult]::new('completion', 'completion', [CompletionResultType]::ParameterValue, 'Print completion script for the given shell to stdout')
+            [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Print this message or the help of the given subcommand(s)')
+            break
+        }
+        'himalaya;help;account' {
+            [CompletionResult]::new('configure', 'configure', [CompletionResultType]::ParameterValue, 'Configure the given account')
+            [CompletionResult]::new('doctor', 'doctor', [CompletionResultType]::ParameterValue, 'Diagnose and fix the given account')
+            [CompletionResult]::new('list', 'list', [CompletionResultType]::ParameterValue, 'List all existing accounts')
+            break
+        }
+        'himalaya;help;account;configure' {
+            break
+        }
+        'himalaya;help;account;doctor' {
+            break
+        }
+        'himalaya;help;account;list' {
+            break
+        }
+        'himalaya;help;folder' {
+            [CompletionResult]::new('add', 'add', [CompletionResultType]::ParameterValue, 'Create the given folder')
+            [CompletionResult]::new('list', 'list', [CompletionResultType]::ParameterValue, 'List all folders')
+            [CompletionResult]::new('expunge', 'expunge', [CompletionResultType]::ParameterValue, 'Expunge the given folder')
+            [CompletionResult]::new('purge', 'purge', [CompletionResultType]::ParameterValue, 'Purge the given folder')
+            [CompletionResult]::new('delete', 'delete', [CompletionResultType]::ParameterValue, 'Delete the given folder')
+            break
+        }
+        'himalaya;help;folder;add' {
+            break
+        }
+        'himalaya;help;folder;list' {
+            break
+        }
+        'himalaya;help;folder;expunge' {
+            break
+        }
+        'himalaya;help;folder;purge' {
+            break
+        }
+        'himalaya;help;folder;delete' {
+            break
+        }
+        'himalaya;help;envelope' {
+            [CompletionResult]::new('list', 'list', [CompletionResultType]::ParameterValue, 'Search and sort envelopes as a list')
+            [CompletionResult]::new('thread', 'thread', [CompletionResultType]::ParameterValue, 'Search and sort envelopes as a thread')
+            break
+        }
+        'himalaya;help;envelope;list' {
+            break
+        }
+        'himalaya;help;envelope;thread' {
+            break
+        }
+        'himalaya;help;flag' {
+            [CompletionResult]::new('add', 'add', [CompletionResultType]::ParameterValue, 'Add flag(s) to the given envelope')
+            [CompletionResult]::new('set', 'set', [CompletionResultType]::ParameterValue, 'Replace flag(s) of a given envelope')
+            [CompletionResult]::new('remove', 'remove', [CompletionResultType]::ParameterValue, 'Remove flag(s) from a given envelope')
+            break
+        }
+        'himalaya;help;flag;add' {
+            break
+        }
+        'himalaya;help;flag;set' {
+            break
+        }
+        'himalaya;help;flag;remove' {
+            break
+        }
+        'himalaya;help;message' {
+            [CompletionResult]::new('read', 'read', [CompletionResultType]::ParameterValue, 'Read a human-friendly version of the message associated to the given envelope id(s)')
+            [CompletionResult]::new('export', 'export', [CompletionResultType]::ParameterValue, 'Export the message associated to the given envelope id')
+            [CompletionResult]::new('thread', 'thread', [CompletionResultType]::ParameterValue, 'Read human-friendly version of messages associated to the given envelope id''s thread')
+            [CompletionResult]::new('write', 'write', [CompletionResultType]::ParameterValue, 'Compose a new message, from scratch')
+            [CompletionResult]::new('reply', 'reply', [CompletionResultType]::ParameterValue, 'Reply to the message associated to the given envelope id')
+            [CompletionResult]::new('forward', 'forward', [CompletionResultType]::ParameterValue, 'Forward the message associated to the given envelope id')
+            [CompletionResult]::new('edit', 'edit', [CompletionResultType]::ParameterValue, 'Edit the message associated to the given envelope id')
+            [CompletionResult]::new('mailto', 'mailto', [CompletionResultType]::ParameterValue, 'Parse and edit a message from the given mailto URL string')
+            [CompletionResult]::new('save', 'save', [CompletionResultType]::ParameterValue, 'Save the given raw message to the given folder')
+            [CompletionResult]::new('send', 'send', [CompletionResultType]::ParameterValue, 'Send the given raw message')
+            [CompletionResult]::new('copy', 'copy', [CompletionResultType]::ParameterValue, 'Copy the message associated to the given envelope id(s) to the given target folder')
+            [CompletionResult]::new('move', 'move', [CompletionResultType]::ParameterValue, 'Move the message associated to the given envelope id(s) to the given target folder')
+            [CompletionResult]::new('delete', 'delete', [CompletionResultType]::ParameterValue, 'Mark as deleted the message associated to the given envelope id(s)')
+            break
+        }
+        'himalaya;help;message;read' {
+            break
+        }
+        'himalaya;help;message;export' {
+            break
+        }
+        'himalaya;help;message;thread' {
+            break
+        }
+        'himalaya;help;message;write' {
+            break
+        }
+        'himalaya;help;message;reply' {
+            break
+        }
+        'himalaya;help;message;forward' {
+            break
+        }
+        'himalaya;help;message;edit' {
+            break
+        }
+        'himalaya;help;message;mailto' {
+            break
+        }
+        'himalaya;help;message;save' {
+            break
+        }
+        'himalaya;help;message;send' {
+            break
+        }
+        'himalaya;help;message;copy' {
+            break
+        }
+        'himalaya;help;message;move' {
+            break
+        }
+        'himalaya;help;message;delete' {
+            break
+        }
+        'himalaya;help;attachment' {
+            [CompletionResult]::new('download', 'download', [CompletionResultType]::ParameterValue, 'Download all attachments found in the given message')
+            break
+        }
+        'himalaya;help;attachment;download' {
+            break
+        }
+        'himalaya;help;template' {
+            [CompletionResult]::new('write', 'write', [CompletionResultType]::ParameterValue, 'Generate a template for writing a new message from scratch')
+            [CompletionResult]::new('reply', 'reply', [CompletionResultType]::ParameterValue, 'Generate a template for replying to a message')
+            [CompletionResult]::new('forward', 'forward', [CompletionResultType]::ParameterValue, 'Generate a template for forwarding a message')
+            [CompletionResult]::new('save', 'save', [CompletionResultType]::ParameterValue, 'Save a template to a folder')
+            [CompletionResult]::new('send', 'send', [CompletionResultType]::ParameterValue, 'Send a template')
+            break
+        }
+        'himalaya;help;template;write' {
+            break
+        }
+        'himalaya;help;template;reply' {
+            break
+        }
+        'himalaya;help;template;forward' {
+            break
+        }
+        'himalaya;help;template;save' {
+            break
+        }
+        'himalaya;help;template;send' {
+            break
+        }
+        'himalaya;help;manual' {
+            break
+        }
+        'himalaya;help;completion' {
+            break
+        }
+        'himalaya;help;help' {
+            break
+        }
+    })
+
+    $completions.Where{ $_.CompletionText -like "$wordToComplete*" } |
+        Sort-Object -Property ListItemText
+}

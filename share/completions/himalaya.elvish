@@ -1,0 +1,1129 @@
+
+use builtin;
+use str;
+
+set edit:completion:arg-completer[himalaya] = {|@words|
+    fn spaces {|n|
+        builtin:repeat $n ' ' | str:join ''
+    }
+    fn cand {|text desc|
+        edit:complex-candidate $text &display=$text' '(spaces (- 14 (wcswidth $text)))$desc
+    }
+    var command = 'himalaya'
+    for word $words[1..-1] {
+        if (str:has-prefix $word '-') {
+            break
+        }
+        set command = $command';'$word
+    }
+    var completions = [
+        &'himalaya'= {
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+            cand account 'Configure, list and diagnose your accounts'
+            cand folder 'Create, list and purge your folders (as known as mailboxes)'
+            cand mailbox 'Create, list and purge your folders (as known as mailboxes)'
+            cand envelope 'List, search and sort your envelopes'
+            cand flag 'Add, change and remove your envelopes flags'
+            cand message 'Read, write, send, copy, move and delete your messages'
+            cand attachment 'Download your message attachments'
+            cand template 'Generate, save and send message templates'
+            cand manual 'Generate manual pages to the given directory'
+            cand completion 'Print completion script for the given shell to stdout'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;account'= {
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+            cand configure 'Configure the given account'
+            cand doctor 'Diagnose and fix the given account'
+            cand list 'List all existing accounts'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;account;configure'= {
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;account;doctor'= {
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand -f 'Try to fix the given account'
+            cand --fix 'Try to fix the given account'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;account;list'= {
+            cand -w 'The maximum width the table should not exceed'
+            cand --max-width 'The maximum width the table should not exceed'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;account;help'= {
+            cand configure 'Configure the given account'
+            cand doctor 'Diagnose and fix the given account'
+            cand list 'List all existing accounts'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;account;help;configure'= {
+        }
+        &'himalaya;account;help;doctor'= {
+        }
+        &'himalaya;account;help;list'= {
+        }
+        &'himalaya;account;help;help'= {
+        }
+        &'himalaya;folder'= {
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+            cand add 'Create the given folder'
+            cand create 'Create the given folder'
+            cand list 'List all folders'
+            cand expunge 'Expunge the given folder'
+            cand purge 'Purge the given folder'
+            cand delete 'Delete the given folder'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;mailbox'= {
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+            cand add 'Create the given folder'
+            cand create 'Create the given folder'
+            cand list 'List all folders'
+            cand expunge 'Expunge the given folder'
+            cand purge 'Purge the given folder'
+            cand delete 'Delete the given folder'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;folder;add'= {
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;folder;create'= {
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;mailbox;add'= {
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;mailbox;create'= {
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;folder;list'= {
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -w 'The maximum width the table should not exceed'
+            cand --max-width 'The maximum width the table should not exceed'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;mailbox;list'= {
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -w 'The maximum width the table should not exceed'
+            cand --max-width 'The maximum width the table should not exceed'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;folder;expunge'= {
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;mailbox;expunge'= {
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;folder;purge'= {
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand -y 'y'
+            cand --yes 'yes'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;mailbox;purge'= {
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand -y 'y'
+            cand --yes 'yes'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;folder;delete'= {
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand -y 'y'
+            cand --yes 'yes'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;mailbox;delete'= {
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand -y 'y'
+            cand --yes 'yes'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;folder;help'= {
+            cand add 'Create the given folder'
+            cand list 'List all folders'
+            cand expunge 'Expunge the given folder'
+            cand purge 'Purge the given folder'
+            cand delete 'Delete the given folder'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;folder;help;add'= {
+        }
+        &'himalaya;folder;help;list'= {
+        }
+        &'himalaya;folder;help;expunge'= {
+        }
+        &'himalaya;folder;help;purge'= {
+        }
+        &'himalaya;folder;help;delete'= {
+        }
+        &'himalaya;folder;help;help'= {
+        }
+        &'himalaya;mailbox;help'= {
+            cand add 'Create the given folder'
+            cand list 'List all folders'
+            cand expunge 'Expunge the given folder'
+            cand purge 'Purge the given folder'
+            cand delete 'Delete the given folder'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;mailbox;help;add'= {
+        }
+        &'himalaya;mailbox;help;list'= {
+        }
+        &'himalaya;mailbox;help;expunge'= {
+        }
+        &'himalaya;mailbox;help;purge'= {
+        }
+        &'himalaya;mailbox;help;delete'= {
+        }
+        &'himalaya;mailbox;help;help'= {
+        }
+        &'himalaya;envelope'= {
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+            cand list 'Search and sort envelopes as a list'
+            cand thread 'Search and sort envelopes as a thread'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;envelope;list'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -p 'The page number'
+            cand --page 'The page number'
+            cand -s 'The page size'
+            cand --page-size 'The page size'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -w 'The maximum width the table should not exceed'
+            cand --max-width 'The maximum width the table should not exceed'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;envelope;thread'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -i 'Show only threads that contain the given envelope identifier'
+            cand --id 'Show only threads that contain the given envelope identifier'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;envelope;help'= {
+            cand list 'Search and sort envelopes as a list'
+            cand thread 'Search and sort envelopes as a thread'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;envelope;help;list'= {
+        }
+        &'himalaya;envelope;help;thread'= {
+        }
+        &'himalaya;envelope;help;help'= {
+        }
+        &'himalaya;flag'= {
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+            cand add 'Add flag(s) to the given envelope'
+            cand set 'Replace flag(s) of a given envelope'
+            cand remove 'Remove flag(s) from a given envelope'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;flag;add'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;flag;set'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;flag;remove'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;flag;help'= {
+            cand add 'Add flag(s) to the given envelope'
+            cand set 'Replace flag(s) of a given envelope'
+            cand remove 'Remove flag(s) from a given envelope'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;flag;help;add'= {
+        }
+        &'himalaya;flag;help;set'= {
+        }
+        &'himalaya;flag;help;remove'= {
+        }
+        &'himalaya;flag;help;help'= {
+        }
+        &'himalaya;message'= {
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+            cand read 'Read a human-friendly version of the message associated to the given envelope id(s)'
+            cand export 'Export the message associated to the given envelope id'
+            cand thread 'Read human-friendly version of messages associated to the given envelope id''s thread'
+            cand write 'Compose a new message, from scratch'
+            cand reply 'Reply to the message associated to the given envelope id'
+            cand forward 'Forward the message associated to the given envelope id'
+            cand edit 'Edit the message associated to the given envelope id'
+            cand mailto 'Parse and edit a message from the given mailto URL string'
+            cand save 'Save the given raw message to the given folder'
+            cand send 'Send the given raw message'
+            cand copy 'Copy the message associated to the given envelope id(s) to the given target folder'
+            cand move 'Move the message associated to the given envelope id(s) to the given target folder'
+            cand delete 'Mark as deleted the message associated to the given envelope id(s)'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;message;read'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -H 'List of headers that should be visible at the top of the message'
+            cand --header 'List of headers that should be visible at the top of the message'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand -p 'Read the message without applying the "seen" flag to its corresponding envelope'
+            cand --preview 'Read the message without applying the "seen" flag to its corresponding envelope'
+            cand --no-headers 'Read only the body of the message'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;message;export'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -d 'Where the message should be exported to'
+            cand --destination 'Where the message should be exported to'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand -F 'Export the full raw message as one unique .eml file'
+            cand --full 'Export the full raw message as one unique .eml file'
+            cand -O 'Try to open the exported message, when applicable'
+            cand --open 'Try to open the exported message, when applicable'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;message;thread'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -H 'List of headers that should be visible at the top of the message'
+            cand --header 'List of headers that should be visible at the top of the message'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand -p 'Thread the message without applying the "seen" flag to its corresponding envelope'
+            cand --preview 'Thread the message without applying the "seen" flag to its corresponding envelope'
+            cand --no-headers 'Thread only the body of the message'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;message;write'= {
+            cand -H 'Prefill the template with custom headers'
+            cand --header 'Prefill the template with custom headers'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;message;reply'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -H 'Prefill the template with custom headers'
+            cand --header 'Prefill the template with custom headers'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand -A 'Reply to all recipients'
+            cand --all 'Reply to all recipients'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;message;forward'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -H 'Prefill the template with custom headers'
+            cand --header 'Prefill the template with custom headers'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;message;edit'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -H 'List of headers that should be visible at the top of the message'
+            cand --header 'List of headers that should be visible at the top of the message'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand -p 'Edit the message on place'
+            cand --on-place 'Edit the message on place'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;message;mailto'= {
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;message;save'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;message;send'= {
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;message;copy'= {
+            cand -f 'The name of the source folder'
+            cand --folder 'The name of the source folder'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;message;move'= {
+            cand -f 'The name of the source folder'
+            cand --folder 'The name of the source folder'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;message;delete'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;message;help'= {
+            cand read 'Read a human-friendly version of the message associated to the given envelope id(s)'
+            cand export 'Export the message associated to the given envelope id'
+            cand thread 'Read human-friendly version of messages associated to the given envelope id''s thread'
+            cand write 'Compose a new message, from scratch'
+            cand reply 'Reply to the message associated to the given envelope id'
+            cand forward 'Forward the message associated to the given envelope id'
+            cand edit 'Edit the message associated to the given envelope id'
+            cand mailto 'Parse and edit a message from the given mailto URL string'
+            cand save 'Save the given raw message to the given folder'
+            cand send 'Send the given raw message'
+            cand copy 'Copy the message associated to the given envelope id(s) to the given target folder'
+            cand move 'Move the message associated to the given envelope id(s) to the given target folder'
+            cand delete 'Mark as deleted the message associated to the given envelope id(s)'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;message;help;read'= {
+        }
+        &'himalaya;message;help;export'= {
+        }
+        &'himalaya;message;help;thread'= {
+        }
+        &'himalaya;message;help;write'= {
+        }
+        &'himalaya;message;help;reply'= {
+        }
+        &'himalaya;message;help;forward'= {
+        }
+        &'himalaya;message;help;edit'= {
+        }
+        &'himalaya;message;help;mailto'= {
+        }
+        &'himalaya;message;help;save'= {
+        }
+        &'himalaya;message;help;send'= {
+        }
+        &'himalaya;message;help;copy'= {
+        }
+        &'himalaya;message;help;move'= {
+        }
+        &'himalaya;message;help;delete'= {
+        }
+        &'himalaya;message;help;help'= {
+        }
+        &'himalaya;attachment'= {
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+            cand download 'Download all attachments found in the given message'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;attachment;download'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;attachment;help'= {
+            cand download 'Download all attachments found in the given message'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;attachment;help;download'= {
+        }
+        &'himalaya;attachment;help;help'= {
+        }
+        &'himalaya;template'= {
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+            cand write 'Generate a template for writing a new message from scratch'
+            cand reply 'Generate a template for replying to a message'
+            cand forward 'Generate a template for forwarding a message'
+            cand save 'Save a template to a folder'
+            cand send 'Send a template'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;template;write'= {
+            cand -H 'Prefill the template with custom headers'
+            cand --header 'Prefill the template with custom headers'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;template;reply'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -H 'Prefill the template with custom headers'
+            cand --header 'Prefill the template with custom headers'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand -A 'Reply to all recipients'
+            cand --all 'Reply to all recipients'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;template;forward'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -H 'Prefill the template with custom headers'
+            cand --header 'Prefill the template with custom headers'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;template;save'= {
+            cand -f 'The name of the folder'
+            cand --folder 'The name of the folder'
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;template;send'= {
+            cand -a 'Override the default account'
+            cand --account 'Override the default account'
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;template;help'= {
+            cand write 'Generate a template for writing a new message from scratch'
+            cand reply 'Generate a template for replying to a message'
+            cand forward 'Generate a template for forwarding a message'
+            cand save 'Save a template to a folder'
+            cand send 'Send a template'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;template;help;write'= {
+        }
+        &'himalaya;template;help;reply'= {
+        }
+        &'himalaya;template;help;forward'= {
+        }
+        &'himalaya;template;help;save'= {
+        }
+        &'himalaya;template;help;send'= {
+        }
+        &'himalaya;template;help;help'= {
+        }
+        &'himalaya;manual'= {
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;completion'= {
+            cand -c 'Override the default configuration file path'
+            cand --config 'Override the default configuration file path'
+            cand -o 'Customize the output format'
+            cand --output 'Customize the output format'
+            cand --debug 'Enable logs with spantrace'
+            cand --trace 'Enable verbose logs with backtrace'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
+        }
+        &'himalaya;help'= {
+            cand account 'Configure, list and diagnose your accounts'
+            cand folder 'Create, list and purge your folders (as known as mailboxes)'
+            cand envelope 'List, search and sort your envelopes'
+            cand flag 'Add, change and remove your envelopes flags'
+            cand message 'Read, write, send, copy, move and delete your messages'
+            cand attachment 'Download your message attachments'
+            cand template 'Generate, save and send message templates'
+            cand manual 'Generate manual pages to the given directory'
+            cand completion 'Print completion script for the given shell to stdout'
+            cand help 'Print this message or the help of the given subcommand(s)'
+        }
+        &'himalaya;help;account'= {
+            cand configure 'Configure the given account'
+            cand doctor 'Diagnose and fix the given account'
+            cand list 'List all existing accounts'
+        }
+        &'himalaya;help;account;configure'= {
+        }
+        &'himalaya;help;account;doctor'= {
+        }
+        &'himalaya;help;account;list'= {
+        }
+        &'himalaya;help;folder'= {
+            cand add 'Create the given folder'
+            cand list 'List all folders'
+            cand expunge 'Expunge the given folder'
+            cand purge 'Purge the given folder'
+            cand delete 'Delete the given folder'
+        }
+        &'himalaya;help;folder;add'= {
+        }
+        &'himalaya;help;folder;list'= {
+        }
+        &'himalaya;help;folder;expunge'= {
+        }
+        &'himalaya;help;folder;purge'= {
+        }
+        &'himalaya;help;folder;delete'= {
+        }
+        &'himalaya;help;envelope'= {
+            cand list 'Search and sort envelopes as a list'
+            cand thread 'Search and sort envelopes as a thread'
+        }
+        &'himalaya;help;envelope;list'= {
+        }
+        &'himalaya;help;envelope;thread'= {
+        }
+        &'himalaya;help;flag'= {
+            cand add 'Add flag(s) to the given envelope'
+            cand set 'Replace flag(s) of a given envelope'
+            cand remove 'Remove flag(s) from a given envelope'
+        }
+        &'himalaya;help;flag;add'= {
+        }
+        &'himalaya;help;flag;set'= {
+        }
+        &'himalaya;help;flag;remove'= {
+        }
+        &'himalaya;help;message'= {
+            cand read 'Read a human-friendly version of the message associated to the given envelope id(s)'
+            cand export 'Export the message associated to the given envelope id'
+            cand thread 'Read human-friendly version of messages associated to the given envelope id''s thread'
+            cand write 'Compose a new message, from scratch'
+            cand reply 'Reply to the message associated to the given envelope id'
+            cand forward 'Forward the message associated to the given envelope id'
+            cand edit 'Edit the message associated to the given envelope id'
+            cand mailto 'Parse and edit a message from the given mailto URL string'
+            cand save 'Save the given raw message to the given folder'
+            cand send 'Send the given raw message'
+            cand copy 'Copy the message associated to the given envelope id(s) to the given target folder'
+            cand move 'Move the message associated to the given envelope id(s) to the given target folder'
+            cand delete 'Mark as deleted the message associated to the given envelope id(s)'
+        }
+        &'himalaya;help;message;read'= {
+        }
+        &'himalaya;help;message;export'= {
+        }
+        &'himalaya;help;message;thread'= {
+        }
+        &'himalaya;help;message;write'= {
+        }
+        &'himalaya;help;message;reply'= {
+        }
+        &'himalaya;help;message;forward'= {
+        }
+        &'himalaya;help;message;edit'= {
+        }
+        &'himalaya;help;message;mailto'= {
+        }
+        &'himalaya;help;message;save'= {
+        }
+        &'himalaya;help;message;send'= {
+        }
+        &'himalaya;help;message;copy'= {
+        }
+        &'himalaya;help;message;move'= {
+        }
+        &'himalaya;help;message;delete'= {
+        }
+        &'himalaya;help;attachment'= {
+            cand download 'Download all attachments found in the given message'
+        }
+        &'himalaya;help;attachment;download'= {
+        }
+        &'himalaya;help;template'= {
+            cand write 'Generate a template for writing a new message from scratch'
+            cand reply 'Generate a template for replying to a message'
+            cand forward 'Generate a template for forwarding a message'
+            cand save 'Save a template to a folder'
+            cand send 'Send a template'
+        }
+        &'himalaya;help;template;write'= {
+        }
+        &'himalaya;help;template;reply'= {
+        }
+        &'himalaya;help;template;forward'= {
+        }
+        &'himalaya;help;template;save'= {
+        }
+        &'himalaya;help;template;send'= {
+        }
+        &'himalaya;help;manual'= {
+        }
+        &'himalaya;help;completion'= {
+        }
+        &'himalaya;help;help'= {
+        }
+    ]
+    $completions[$command]
+}
